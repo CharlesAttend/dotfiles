@@ -123,9 +123,11 @@ alias fullpush="git add * && git commit && git push"
 alias vpnc="sudo wg-quick up freebox"
 alias vpnd="sudo wg-quick down freebox"
 alias discord="discord --enable-features=UseOzonePlatform --ozone-platform=wayland"
+alias texliveonfly="python $HOME/.TinyTeX/bin/x86_64-linux/texliveonfly.py"
 
 # Alias for study
 alias amal="code ~/M2-DAC/AMAL && exit"
+alias climode="code ~/M2-DAC/AMAL/ClimODE & code ~/ClimODE_original_code && exit"
 alias as="code ~/M2-DAC/AS && exit"
 alias os="code ~/M2-DAC/OS && exit"
 alias rdfia="code ~/M2-DAC/RDFIA && exit"

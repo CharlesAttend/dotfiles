@@ -1,0 +1,136 @@
+/* Created   by https://github.com/rxyhn 
+   Designed  by https://github.com/rxyhn
+   Maintaned by https://github.com/rxyhn
+*/
+
+// Global
+* {
+  all: unset;
+}
+
+// Variable Color's
+$background: #1a1b26;
+// $background: transparent;
+$background2: transparent;
+$foreground: #a9b1d6;
+
+$black: #24283b;
+$gray: #565f89;
+$red: #f7768e;
+$green: #73daca;
+$yellow: #e0af68;
+$blue: #7aa2f7;
+$magenta: #bb9af7;
+$cyan: #7dcfff;
+$white: $foreground;
+
+// EWW BAR
+.eww_bar {
+  background-color: $background2;
+  // opacity: 0.5;
+  font-family: JetBrainsMono Nerd Font;
+  // padding: 1rem;
+}
+
+// Launcher
+.launcher_icon {
+  color: $cyan;
+  font-size: 1.7em;
+}
+
+// Control Panel
+.control {
+  font-size: 1.5em;
+  margin: 0.4em;
+  background-color: $background2;
+  border-radius: 5px;
+}
+.bat {
+  color: $blue;
+  font-size: 1.1em;
+  margin-left: 0.2em;
+}
+
+.watt {
+  color: $white;
+  font-size: 1em;
+}
+
+.wifi-icon {
+  color: $magenta;
+}
+.brightness-icon {
+  color: $yellow;
+}
+.volume-icon {
+  color: $green;
+}
+
+scale trough {
+  all: unset;
+  background-color: $background;
+  border-radius: 5px;
+  min-height: 80px;
+  min-width: 10px;
+}
+.bribar trough highlight {
+  background-color: $yellow;
+  border-radius: 5px;
+}
+.volbar trough highlight {
+  background-color: $green;
+  border-radius: 5px;
+}
+
+// Clock
+.time {
+  // font-family: Comic Mono;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: $background2;
+  color: $white;
+  border-radius: 5px;
+}
+
+// Calendar
+.cal-box {
+  background-color: $black;
+  opacity: 0.8;
+  font-size: 1rem;
+  font-weight: bold;
+
+  .cal-inner-box {
+    padding: 1rem 1rem 0.2rem;
+
+    .cal {
+      &.highlight {
+        padding: 10rem;
+      }
+
+      padding: 0.8rem 0.25rem 0rem;
+      margin-left: 10px;
+    }
+  }
+}
+
+calendar:selected {
+  color: $blue;
+}
+
+calendar.header {
+  color: $blue;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: $magenta;
+}
+
+calendar.highlight {
+  color: $magenta;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: $background;
+}

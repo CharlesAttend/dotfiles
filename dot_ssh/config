@@ -1,0 +1,37 @@
+Host github.com
+  HostName github.com
+  IdentityFile ~/.ssh/id_ed25519
+
+Host 192.168.0.9
+  HostName 192.168.0.9
+  User charles
+  
+Host rpi4
+  HostName 192.168.0.42
+  User charles
+
+Host ppti-14-302-11
+Host ppti-14-302-12
+Host ppti-14-502-11
+Host ppti-14-502-12
+Host ppti-gpu-2
+
+Host ppti-gpu-*
+  HostName %h
+  User 21216136
+  ProxyJump ppti-ssh
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host ppti-14-*
+  HostName %h
+  User 21216136
+  ProxyJump ppti-ssh
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host ppti-ssh
+  HostName ssh.ufr-info-p6.jussieu.fr
+  User 21216136
+  AddKeysToAgent yes
+

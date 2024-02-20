@@ -1,0 +1,291 @@
+;; Created   by https://github.com/rxyhn
+;; Designed  by https://github.com/rxyhn
+;; Maintaned by https://github.com/rxyhn
+
+;; put path to aesthetic bar config files here ;;
+(defvar eww "eww -c $HOME/.config/eww/")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Widget Section's							 ;;	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Launcher Widgets ;;
+(defwidget launcher []
+	(box 
+		:orientation "v"
+		:valign "start"
+		(button 
+			:class "launcher_icon" 
+			:onclick "scripts/popup launcher" 
+			"󰍉"
+		)
+	)
+)
+
+
+(defpoll workspace_number			
+	:interval "1s"	"hyprctl monitors -j | jq '.[0].activeWorkspace.id'")
+(defwidget workspace []
+	(box 
+		:orientation "v"
+		:valign "start"
+		(label 
+			:class "launcher_icon" 
+			:text workspace_number
+		)
+	)
+)
+
+;; Clock Widgets ;;
+(defpoll hour	
+	:interval "1s" "date '+%H'"
+)
+(defpoll min	
+	:interval "1s" "date '+%M'"
+)
+(defwidget time []
+	(box	
+		:orientation "v" 
+		:class "time" 
+		:valign "end"
+		(button
+			:onclick "scripts/popup calendar"	
+			:class "time-hour" hour
+		)
+		(button	
+			:onclick "scripts/popup calendar"	
+			:class "time-min"  min
+		)
+	)
+)
+
+;; Battery Widgets ;;
+(defpoll battery			
+	:interval "1s"	"scripts/battery icon")
+(defpoll battery-cappacity	
+	:interval "1s"	"scripts/battery percent")
+(defwidget bat []
+	(box	
+		:orientation "v"
+		:halign "start"
+		:space-evenly "false"
+		:tooltip "Battery: ${battery-cappacity}%"
+		:class "bat"
+		battery
+	)
+)
+
+;; Wifi Widgets ;;
+(defpoll wifi-icon :interval "1s" "scripts/wifi icon")
+(defpoll wifi-name :interval "1s" "scripts/wifi name")
+(defwidget wifi []
+	(box		
+		:orientation "v"
+		:halign "start"
+		:tooltip wifi-name
+		(button
+			:onclick "scripts/popup wifi" 
+			:class "wifi-icon" 
+			wifi-icon
+		)
+	)
+)
+	
+;; Brightness Widgets ;;
+(defpoll current-brightness 
+	:interval "1s" "brightnessctl -m -d intel_backlight | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'"
+)
+(defvar bright false)
+(defwidget bright []
+	(eventbox 
+		:onhover "${eww} update bright=true"   
+		:onhoverlost "${eww} update bright=false"
+		(box    
+			:orientation "v"  
+			:space-evenly "false"  
+			:halign "start"
+			:spacing 2
+			(revealer
+				:transition "slideup" 
+				:reveal bright   
+				:duration "550ms"
+				(scale
+					:class "bribar" 
+					:value current-brightness 
+					:tooltip "Brightness: ${current-brightness}%" 
+					:onchange "brightnessctl set {}%" 
+					:orientation "v" 
+					:flipped true 
+					:max 101 
+					:min 1
+				)
+			)
+			(label 
+				:class "brightness-icon" 
+				:text "󰃠"
+			)
+		)
+	)
+)
+	
+;; Volume Widgets ;;
+(defpoll current-volume 
+	:interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print $2 }' | tr -d '0.'")
+(defvar volum false)
+(defwidget volum []
+	(eventbox 
+		:onhover "${eww} update volum=true" 		
+		:onhoverlost "${eww} update volum=false"
+		(box      
+			:orientation "v"
+			:halign "start"
+			:space-evenly "false" 
+			:spacing "2"
+			(revealer 
+				:transition "slideup" 
+				:reveal volum         
+				:duration "550ms"
+				(scale    
+					:class "volbar" 	  
+					:value current-volume
+					:orientation "v"      
+					:flipped true 
+					:tooltip "Volume: ${current-volume}%" 
+					:max 100 
+					:min 0 
+					:onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"
+				)
+			)
+			(button
+				:onclick "scripts/popup audio"
+				:class "volume-icon"
+				"󰕾"
+			)
+		)
+	)
+)
+
+(defpoll power-draw
+	:interval "1s"	"awk '{printf \"%.1f\", $1 * 10^-6}' /sys/class/power_supply/BAT0/power_now")
+(defwidget watt []
+	(box	
+		:orientation "v"
+		:halign "center"
+		:space-evenly "true"
+		:class "watt"
+		power-draw
+	)
+)
+
+;; Control Panel Widgets ;;	
+(defwidget control []
+	(box 
+		:orientation "v" 
+		:space-evenly false
+		:valign "end"
+		:class "control"
+		(bat)
+		(wifi)
+		(bright)
+		(volum)
+	)
+)
+
+;; Calendar Widgets ;;
+(defpoll calendar_day 
+	:interval "10h" "date '+%d'"
+)
+(defpoll calendar_month 
+	:interval "10h" "scripts/calendar"
+)
+(defpoll calendar_year 
+	:interval "10h"	"date '+%Y'"
+)
+(defwidget cal []
+	(box 
+		:class "cal-box" 
+		:orientation "v"
+		(box 
+			:class "cal-inner-box"
+			(calendar 
+				:class "cal" 
+				:day calendar_day 
+				:month calendar_month 
+				:year calendar_year
+			)
+		)
+	)
+)
+
+;; Top Widgets ;;
+(defwidget top []
+	(box	
+		:orientation "v" 
+		(launcher)
+		(workspace)
+	)
+)
+
+;; Middle Widgets ;;
+(defwidget middle []
+	(box	
+		:orientation "v" 
+		(time)
+	)
+)
+
+;; End Widgets ;;
+(defwidget end []
+	(box 
+		:orientation "v" 
+		; :space-evenly "false" 
+		(watt)
+		(control)
+	)
+)
+
+;; Bar Widgets ;;
+(defwidget bar []
+	(centerbox 
+		:class "eww_bar" 
+		:orientation "v"
+		:height "100%"
+		:width "100%"
+		(top)
+		(middle)
+		(end)
+	)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Window Section's							 ;;	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bar Windows ;;
+(defwindow bar
+	:geometry (
+		geometry 
+			:height "100%"
+			:width "2%" 
+			; :width "47px"
+			:anchor "left center"
+	)
+	:monitor 0
+	:exclusive "true"
+	(bar)
+)
+
+;; Calendar Windows ;;
+(defwindow calendar
+	:monitor 0
+	:geometry (
+		geometry 
+			:anchor "left center" 
+			:width "270px" 
+			:height "60px"
+	)
+	(cal)
+)
+
+
+
+
+
