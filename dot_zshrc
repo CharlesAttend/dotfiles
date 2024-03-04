@@ -120,11 +120,11 @@ export DATAMAESTRO_DIR="~/M2-DAC/.datamaestro"
 # Custom aliases
 alias stfu="shutdown now"
 alias fullpush="git add * && git commit && git push"
+alias vpncnam="secret-tool lookup user password | sudo openconnect --protocol=gp vpn.cnam.fr --csd-wrapper /usr/lib/openconnect/hipreport.sh  -u vinc --passwd-on-stdin"
 alias vpnc="sudo wg-quick up freebox"
 alias vpnd="sudo wg-quick down freebox"
 alias discord="discord --enable-features=UseOzonePlatform --ozone-platform=wayland"
 alias texliveonfly="python $HOME/.TinyTeX/bin/x86_64-linux/texliveonfly.py"
-
 # Alias for study
 alias amal="code ~/M2-DAC/AMAL && exit"
 alias climode="code ~/M2-DAC/AMAL/ClimODE & code ~/ClimODE_original_code && exit"
