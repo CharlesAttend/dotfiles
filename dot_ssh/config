@@ -1,3 +1,18 @@
+Host gpuserver*
+  HostName %h
+  User vinc
+  IdentityFile ~/.ssh/id_ed25519
+
+Host gpuserver5-master
+Host gpuserver4-master
+# Host gpuserver1-master # No access
+Host gpuserver6-master
+  # 6 presque comme le 2
+Host gpuserver2-master
+Host gpuserver7
+Host gpuserver8
+Host gpuserver9
+
 Host github.com
   HostName github.com
   IdentityFile ~/.ssh/id_ed25519
