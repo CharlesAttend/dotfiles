@@ -5,6 +5,8 @@ text/plain=visual-studio-code-insiders.desktop;
 text/csv=code_code.desktop;
 image/gif=vivaldi-stable.desktop;
 image/png=gimp.desktop;
+application/x-zerosize=code.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
 
 [Default Applications]
 application/json=code_code.desktop;
@@ -23,3 +25,4 @@ text/csv=code_code.desktop
 image/gif=vivaldi-stable.desktop
 image/png=gimp.desktop
 x-scheme-handler/ftb=ftb-app.desktop
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop
