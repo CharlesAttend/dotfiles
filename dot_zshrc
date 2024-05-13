@@ -134,3 +134,5 @@ alias rdfia="code ~/M2-DAC/RDFIA && exit"
 alias reds="code ~/M2-DAC/REDS && exit"
 alias xai="code ~/M2-DAC/XAI && exit"
 alias oip="code ~/M2-DAC/OIP && exit"
+
+alias brave="brave --enable-features=TouchpadOverscrollHistoryNavigation --enable-features=UseOzonePlatform --ozone-platform=wayland"
